@@ -1,6 +1,6 @@
 <?php
     $host= "localhost";
-    $puerto= 3360;
-    $database= "ReservaTurnos";
+    $puerto= 3306;
+    $database= "ReservaTurno";
     $user= "root";
-    $password = "";
+    $password = "jani123";

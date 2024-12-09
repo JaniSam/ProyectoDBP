@@ -11,7 +11,7 @@
         <div class="row vh-100 justify-content-center align-items-center">
             <div class="col-auto bg-light p-5">
                 <h1>INICIO DE SESIÓN</h1>
-                <form action="../MODELO/CRUD_turno.php" method="post">
+                <form action="../MODELO/Validación.php" method="post">
                     <div class="input-group p-2">
                         <input class="from-control" type="text" name="usuario" id="usuario" placeholder="Usuario">                    
                     </div>

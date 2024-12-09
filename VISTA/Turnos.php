@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <title>Registro de Turnos</title>
+    <title>Turnos</title>
 </head>
 <body>
     <header>
@@ -17,7 +17,7 @@
                 <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                     <div class="navbar-nav">
                         <a class="nav-link active" aria-current="page" href="index.php">INICIO DE SESION</a>
-                        <a class="nav-link" href="Turnos.php">TURNOS</a>
+                        <a class="nav-link" href="ReservaTurno.php">RESERVAS</a>
                         <a class="nav-link disabled" aria-disabled="true">SALIR</a>
                     </div>
                 </div>
@@ -27,24 +27,40 @@
     <div class="conteiner">
         <div class="row vh-100 justify-content-center align-items-center">
             <div class="col-auto bg-light p-5">
-                <h1>REGISTRAR TURNOS</h1>
-                <form action="../MODELO/CRUD_turno.php" method="post">
-                    <div class="input-group p-2">
-                        <input class="from-control" type="number" name="cedula" id="cedula" placeholder="CEDULA">                    
-                    </div>
-                    <div class="input-group p-2">
-                        <input class="from-control" type="text" name="nomAp" id="nomAp" placeholder="NOMBRE Y APELLIDO">
-                    </div>
-                    <div class="input-group p-2">
-                        <select class="from-control" name="turno" id="turno">
-                            <option name="1" value="seleccione">SELECCIONE</option>
-                            <option name="2" value="seleccione">DERMATOLOGÍA</option>
-                            <option name="3" value="seleccione">PEDIATRÍA</option>
-                            <option name="4" value="seleccione">CARDIOLOGÍA</option>
-                        </select>
-                    </div>
-                    <button class="btn btn-success w-100" type= "submit" name= "registroT" id="registroT">REGISTRAR</button>
-                </form>
+                <h1>TURNOS</h1>
+                <table class="table table-striped table-hover">
+                    <thead>
+                        <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">CI</th>
+                        <th scope="col">CLIENTE</th>
+                        <th scope="col">ESPECIALIDAD</th>
+                        <th scope="col">DOCTOR/A</th>
+                        <th scope="col">FECHA/HORA</th>
+                        <th scope="col">ESTADO</th>
+                        <th scope="col">#</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                        <th scope="row">1</th>
+                        <td>Mark</td>
+                        <td>Otto</td>
+                        <td>@mdo</td>
+                        </tr>
+                        <tr>
+                        <th scope="row">2</th>
+                        <td>Jacob</td>
+                        <td>Thornton</td>
+                        <td>@fat</td>
+                        </tr>
+                        <tr>
+                        <th scope="row">3</th>
+                        <td colspan="2">Larry the Bird</td>
+                        <td>@twitter</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>

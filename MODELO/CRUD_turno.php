@@ -1,11 +1,13 @@
 <?php
     require "../CONTROLADOR/DataBase/conexion.php";
 
-    if (isset($_POST['iniciarS'])) {
-        $ci = $_POST['cedula'];
-        $nombre = $_POST['nomAp'];
-        $correo = $_POST['correo'];
-        $turno = $_POST['turno'];
+    if (isset($_POST['registroT'])) {
+        $cedula = $_POST['cedula'];
+        $nombreCli = $_POST['nomAp'];
+        $idTurno = $_POST['turno'];
 
+        $consulta = "";
         header('location: ../VISTA/ReservaTurno.php ');
     }
+
+
