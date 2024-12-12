@@ -68,5 +68,54 @@
         $stmt->close();
     }
     
+    //buscar por fechas
+    if (isset($_POST['buscar'])) {
+        $fecha_inicio = $_POST['fecha_inicio'] ?? '';
+        $fecha_fin = $_POST['fecha_fin'] ?? '';
+    
+        $query = "SELECT 
+                    rt.idReservaT, 
+                    rt.cedulaCli, 
+                    rt.nombreCli, 
+                    e.nombreEsp AS especialidad, 
+                    p.nombreProf AS profesional, 
+                    t.hora_fecha AS fecha_turno, 
+                    rt.estado AS estado_turno
+                  FROM 
+                    reservaturnos AS rt
+                  INNER JOIN 
+                    turnos AS t ON rt.idTurno = t.idTurno
+                  INNER JOIN 
+                    profesionales AS p ON t.idProfesional = p.idProfesional
+                  INNER JOIN 
+                    especialidades AS e ON p.idEspecialidad = e.idEspecialidad";
+    
+        if ($fecha_inicio && $fecha_fin) {
+            $query .= " WHERE t.hora_fecha BETWEEN ? AND ? ORDER BY rt.idReservaT DESC";
+            $stmt = $conexion->prepare($query);
+            $stmt->bind_param("ss", $fecha_inicio, $fecha_fin);
+        } else {
+            $query .= " ORDER BY rt.idReservaT DESC";
+            $stmt = $conexion->prepare($query);
+        }
+    
+        $stmt->execute();
+        $result = $stmt->get_result();
+    
+        // Guarda los datos en un arreglo asociativo
+        $data = [];
+        while ($row = $result->fetch_assoc()) {
+            $data[] = $row;
+        }
+    
+        // Almacena los datos en la sesión
+        session_start();
+        $_SESSION['result'] = $data;
+    
+        header('Location: ../VISTA/BusquedaRegistro.php');
+        exit;
+    }
+  
+
     $conexion->close();
 

@@ -25,6 +25,27 @@ include '../CONTROLADOR/DataBase/conexion.php';
             </div>
         </nav>
     </header>
+
+    <!-- Formulario de búsqueda por rango de fechas -->
+    <div class="container mb-4">
+        <form action="../MODELO/CRUD_turno.php" method="POST">
+            <div class="row">
+                <div class="col-md-5">
+                    <label for="fecha_inicio" class="form-label">Fecha de Inicio</label>
+                    <input type="date" class="form-control" name="fecha_inicio" id="fecha_inicio">
+                </div>
+                <div class="col-md-5">
+                    <label for="fecha_fin" class="form-label">Fecha de Fin</label>
+                    <input type="date" class="form-control" name="fecha_fin" id="fecha_fin">
+                </div>
+                <div class="col-md-2 d-flex align-items-end">
+                    <button type="submit" class="btn btn-primary w-100" name="buscar" id="buscar">Buscar</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+
     <div class="container mt-5">
         <h1 class="text-center mb-4">Turnos Registrados</h1>
         <table class="table table-striped table-hover">
@@ -58,7 +79,9 @@ include '../CONTROLADOR/DataBase/conexion.php';
                           INNER JOIN 
                             profesionales AS p ON t.idProfesional = p.idProfesional
                           INNER JOIN 
-                            especialidades AS e ON p.idEspecialidad = e.idEspecialidad";
+                            especialidades AS e ON p.idEspecialidad = e.idEspecialidad
+                          ORDER BY 
+                            rt.idReservaT DESC;";
 
                 $result = $conexion->query($query);
 

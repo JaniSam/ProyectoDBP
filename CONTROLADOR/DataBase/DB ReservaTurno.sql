@@ -23,7 +23,7 @@ create table Turnos(
     idTurno int auto_increment primary key,
     idProfesional int not null,
     constraint fkIdProfesional foreign key (idProfesional) references Profesionales(idProfesional),
-    hora_fecha dateTime not null,
+    hora_fecha date not null,
     precio double not null
 )
 
@@ -39,32 +39,36 @@ create table ReservaTurnos(
 -- consulta para insertar registros de:
 -- usuarios
 INSERT INTO usuarios (nomUsu, clave, rolUsu) VALUES
-('Jani123', '123jani', 1),
+('Jani707', '707jani', 1),
 ('Moni34', 'mon43', 2),
-('Yeni74', 'yen64', 2)
+('Yeni74', 'yen64', 2),
+('Aye123', 'aye123', 2)
 
 -- Especialidades
 INSERT INTO especialidades (nombreEsp) VALUES
 ('Dermatología'),
 ('Ginecología'),
 ('Odontologia'),
-('Pediatría')
+('Pediatría'),
+('Clinico')
 SELECT * FROM especialidades
 
 -- Profesionales
 INSERT INTO profesionales (nombreProf, idEspecialidad) VALUES
-('Hyun Jae Cho Kwon',3),
-('Mauricio Caceres', 2),
-('Lee Senturion', 1),
-('Franchezco',4)
+('Dr. Hyun Jae Chon',3),
+('Dra. Carmensia Dias', 2),
+('Dra. Lee Senturion', 1),
+('Dr. Franchezco',3),
+('Dr. Chapatin',5)
 SELECT * FROM profesionales
 
 -- Turnos 
 INSERT INTO turnos (idProfesional, hora_fecha, precio) VALUES
-(1, '2024-12-11 16:00:00', 35000),
-(4, '2024-12-12 09:30:00', 50000),
-(3, '2024-12-31 23:59:59', 65000),
-(2, '2024-12-09 14:30:00', 50000)
+(1, '2024-12-11', 35000),
+(4, '2024-12-12', 50000),
+(3, '2024-12-31', 65000),
+(2, '2024-12-09', 50000),
+(5, '2024-12-15', 25000)
 SELECT *FROM turnos
 
 -- Reserva de Turnos
@@ -89,8 +93,9 @@ INNER JOIN
     profesionales AS p ON t.idProfesional = p.idProfesional
 INNER JOIN 
     especialidades AS e ON p.idEspecialidad = e.idEspecialidad
+
 WHERE 
-    t.hora_fecha = '2024-12-09 14:30:00' ;
+    t.hora_fecha = '2024-12-12' ;
 
 
 -- consulta para validar usuario
@@ -106,3 +111,4 @@ INNER JOIN
     profesionales p ON t.idProfesional = p.idProfesional
 INNER JOIN 
     especialidades e ON p.idEspecialidad = e.idEspecialidad;
+
