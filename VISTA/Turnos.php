@@ -1,69 +1,141 @@
+<?php
+// Incluye el archivo de conexión
+include '../CONTROLADOR/DataBase/conexion.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <title>Turnos</title>
+    <title>Turnos Registrados</title>
 </head>
 <body>
     <header>
         <nav class="navbar navbar-expand-lg bg-body-tertiary">
             <div class="container-fluid">
                 <a class="navbar-brand" href="#">SPA "JA YE GI MO"</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
                 <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                     <div class="navbar-nav">
                         <a class="nav-link active" aria-current="page" href="index.php">INICIO DE SESION</a>
-                        <a class="nav-link" href="ReservaTurno.php">RESERVAS</a>
+                        <a class="nav-link" href="ReservaTurno.php">RESERVAR</a>
                         <a class="nav-link disabled" aria-disabled="true">SALIR</a>
                     </div>
                 </div>
             </div>
         </nav>
     </header>
-    <div class="conteiner">
-        <div class="row vh-100 justify-content-center align-items-center">
-            <div class="col-auto bg-light p-5">
-                <h1>TURNOS</h1>
-                <table class="table table-striped table-hover">
-                    <thead>
-                        <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">CI</th>
-                        <th scope="col">CLIENTE</th>
-                        <th scope="col">ESPECIALIDAD</th>
-                        <th scope="col">DOCTOR/A</th>
-                        <th scope="col">FECHA/HORA</th>
-                        <th scope="col">ESTADO</th>
-                        <th scope="col">#</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                        <th scope="row">1</th>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                        </tr>
-                        <tr>
-                        <th scope="row">2</th>
-                        <td>Jacob</td>
-                        <td>Thornton</td>
-                        <td>@fat</td>
-                        </tr>
-                        <tr>
-                        <th scope="row">3</th>
-                        <td colspan="2">Larry the Bird</td>
-                        <td>@twitter</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">Turnos Registrados</h1>
+        <table class="table table-striped table-hover">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>CI</th>
+                    <th>Cliente</th>
+                    <th>Especialidad</th>
+                    <th>Doctor/a</th>
+                    <th>Fecha/Hora</th>
+                    <th>Estado</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                // Consulta para obtener los turnos registrados
+                $query = "SELECT 
+                            rt.idReservaT, 
+                            rt.cedulaCli, 
+                            rt.nombreCli, 
+                            e.nombreEsp AS especialidad, 
+                            p.nombreProf AS profesional, 
+                            t.hora_fecha AS fecha_turno, 
+                            rt.estado AS estado_turno
+                          FROM 
+                            reservaturnos AS rt
+                          INNER JOIN 
+                            turnos AS t ON rt.idTurno = t.idTurno
+                          INNER JOIN 
+                            profesionales AS p ON t.idProfesional = p.idProfesional
+                          INNER JOIN 
+                            especialidades AS e ON p.idEspecialidad = e.idEspecialidad";
+
+                $result = $conexion->query($query);
+
+                if ($result->num_rows > 0) {
+                    while ($row = $result->fetch_assoc()) {
+                        echo "<tr>
+                                <td>{$row['idReservaT']}</td>
+                                <td>{$row['cedulaCli']}</td>
+                                <td>{$row['nombreCli']}</td>
+                                <td>{$row['especialidad']}</td>
+                                <td>{$row['profesional']}</td>
+                                <td>{$row['fecha_turno']}</td>
+                                <td>{$row['estado_turno']}</td>
+                                <td>
+                                    <!-- Botón de Editar que abre el Modal -->
+                                    <button type='button' class='btn btn-primary btn-sm' data-bs-toggle='modal' data-bs-target='#editarModal{$row['idReservaT']}'>Editar</button> 
+                                    <!-- Modal de Edición -->
+                                    <div class='modal fade' id='editarModal{$row['idReservaT']}' tabindex='-1' aria-labelledby='editarModalLabel' aria-hidden='true'>
+                                        <div class='modal-dialog'>
+                                            <div class='modal-content'>
+                                                <div class='modal-header'>
+                                                    <h5 class='modal-title' id='editarModalLabel'>Editar Estado del Turno</h5>
+                                                    <button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Close'></button>
+                                                </div>
+                                                <div class='modal-body'>
+                                                    <form action='../MODELO/CRUD_turno.php' method='POST'>
+                                                        <input type='hidden' name='id' value='{$row['idReservaT']}'>
+                                                        <div class='mb-3'>
+                                                            <label for='estado' class='form-label'>Estado del Turno</label>
+                                                            <select class='form-select' name='estado' id='estado'>
+                                                                <option value='Pendiente' " . ($row['estado_turno'] == 'Pendiente' ? 'selected' : '') . ">Pendiente</option>
+                                                                <option value='Anulado' " . ($row['estado_turno'] == 'Anulado' ? 'selected' : '') . ">Anulado</option>
+                                                                <option value='Atendido' " . ($row['estado_turno'] == 'Atendido' ? 'selected' : '') . ">Atendido</option>
+                                                            </select>
+                                                        </div>
+                                                        <button type='submit' class='btn btn-primary' name='actualizarEstado'>Actualizar</button>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Botón de Eliminar que abre el Modal -->
+                                    <button type='button' class='btn btn-danger btn-sm' data-bs-toggle='modal' data-bs-target='#confirmarEliminacionModal{$row['idReservaT']}'>🗑</button>
+                                    
+                                    <!-- Modal de Confirmación de Eliminación -->
+                                    <div class='modal fade' id='confirmarEliminacionModal{$row['idReservaT']}' tabindex='-1' aria-labelledby='confirmarEliminacionModalLabel' aria-hidden='true'>
+                                        <div class='modal-dialog'>
+                                            <div class='modal-content'>
+                                                <div class='modal-header'>
+                                                    <h5 class='modal-title' id='confirmarEliminacionModalLabel'>¿Estás seguro de eliminar este turno?</h5>
+                                                    <button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Close'></button>
+                                                </div>
+                                                <div class='modal-body'>
+                                                    <p>Este proceso no se puede deshacer.</p>
+                                                </div>
+                                                <div class='modal-footer'>
+                                                    <button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Cancelar</button>
+                                                    <a href='../MODELO/CRUD_turno.php?id={$row['idReservaT']}&accion=eliminar' class='btn btn-danger'>Eliminar</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                              </tr>";
+                    }
+                } else {
+                    echo "<tr><td colspan='8' class='text-center'>No hay registros</td></tr>";
+                }
+
+                $conexion->close();
+                ?>
+            </tbody>
+        </table>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+    <!-- Scripts de Bootstrap -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-pzjw8f+ua7Kw1TIq0sEpmKj+ua7Kw1TIq0sEpmKj+ua7Kw1TIq0sEpmKj+ua7Kw1TIq0sEpmKj+" crossorigin="anonymous"></script>
 </body>
 </html>

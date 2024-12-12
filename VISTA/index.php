@@ -6,20 +6,25 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <title>Iniciar Sesión</title>
 </head>
-<body>
-    <div class="conteiner">
-        <div class="row vh-100 justify-content-center align-items-center">
-            <div class="col-auto bg-light p-5">
-                <h1>INICIO DE SESIÓN</h1>
+<body class="bg-light">
+    <div class="container vh-100 d-flex justify-content-center align-items-center">
+        <div class="row w-100 align-items-center">
+            <!-- Logo -->
+            <div class="col-md-6 text-center">
+                <img src="../IMAGENES/Logo/Spa Ja Ye Gi Mo.png" class="img-fluid" alt="Logo Ja Ye Gi Mo" style="max-width: 300px; height: auto;">
+            </div>
+
+            <!-- Formulario -->
+            <div class="col-md-6 bg-white shadow p-5 rounded">
+                <h1 class="text-center mb-4">INICIO DE SESIÓN</h1>
                 <form action="../MODELO/Validación.php" method="post">
-                    <div class="input-group p-2">
-                        <input class="from-control" type="text" name="usuario" id="usuario" placeholder="Usuario">                    
+                    <div class="mb-3">
+                        <input class="form-control" type="text" name="usuario" id="usuario" placeholder="Usuario">                    
                     </div>
-                    <div class="input-group p-2">
-                        <input class="from-control" type="password" name="clave" id="clave" placeholder="Contraseña">
+                    <div class="mb-3">
+                        <input class="form-control" type="password" name="clave" id="clave" placeholder="Contraseña">
                     </div>
-                    
-                    <button class="btn btn-success w-100" type= "submit" name= "iniciarS" id="iniciarS">ACEPTAR</button>
+                    <button class="btn btn-success w-100" type="submit" name="iniciarS" id="iniciarS">ACEPTAR</button>
                 </form>
             </div>
         </div>
