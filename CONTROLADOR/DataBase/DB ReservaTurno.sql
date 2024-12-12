@@ -49,32 +49,31 @@ INSERT INTO especialidades (nombreEsp) VALUES
 ('Ginecología'),
 ('Odontologia'),
 ('Pediatría')
+SELECT * FROM especialidades
 
 -- Profesionales
 INSERT INTO profesionales (nombreProf, idEspecialidad) VALUES
+('Hyun Jae Cho Kwon',3),
 ('Mauricio Caceres', 2),
 ('Lee Senturion', 1),
 ('Franchezco',4)
+SELECT * FROM profesionales
 
 -- Turnos 
 INSERT INTO turnos (idProfesional, hora_fecha, precio) VALUES
+(1, '2024-12-11 16:00:00', 35000),
+(4, '2024-12-12 09:30:00', 50000),
 (3, '2024-12-31 23:59:59', 65000),
 (2, '2024-12-09 14:30:00', 50000)
- SELECT * FROM turnos
+SELECT *FROM turnos
 
 -- Reserva de Turnos
 INSERT INTO reservaturnos (cedulaCli, nombreCli, idTurno, estado) VALUES
 (25445, 'Flaudelio', 2, 2),
-(6172894 ,'Juanastasio', 1)
+(5214445 ,'Fredy', 1,2)
 SELECT * FROM reservaturnos
 
-/*SELECT rt.cedulaCli AS Cedula, rt.nombreCli AS Nombre, e.idEspecialidad AS Especialidad, p.nombreProf AS Profesional, t.hora_fecha AS Fecha_Hora, t.estado AS Turno
-FROM reservaturnos as rt 
-INNER JOIN turnos AS t ON rt.idReservaT = t.idTurno
-INNER JOIN especialidades AS e ON rt.idReservaT = e.idEspecialidad
-INNER JOIN profesionales AS p ON rt.idReservaT = p.idProfesional
-WHERE rt.idReservaT = 4*/
-
+-- consulta para visualizar registros 
 SELECT 
     rt.cedulaCli, 
     rt.nombreCli, 
@@ -96,3 +95,14 @@ WHERE
 
 -- consulta para validar usuario
 SELECT * FROM usuarios WHERE nomUsu = 'Jani123' AND clave = '123jani';
+
+-- consulta para visualizar turnos 
+SELECT 
+    t.idTurno, 
+    e.nombreEsp AS especialidad 
+FROM 
+    turnos t 
+INNER JOIN 
+    profesionales p ON t.idProfesional = p.idProfesional
+INNER JOIN 
+    especialidades e ON p.idEspecialidad = e.idEspecialidad;

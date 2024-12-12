@@ -1,3 +1,16 @@
+<?php
+// Incluir la conexión a la base de datos
+include '../CONTROLADOR/DataBase/conexion.php';
+
+// Consultar los turnos con su especialidad en la base de datos
+$query = "SELECT t.idTurno, e.nombreEsp AS especialidad FROM turnos t 
+        INNER JOIN 
+            profesionales p ON t.idProfesional = p.idProfesional
+        INNER JOIN 
+            especialidades e ON p.idEspecialidad = e.idEspecialidad;";
+$result = $conexion->query($query);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -30,20 +43,28 @@
                 <h1>REGISTRAR TURNOS</h1>
                 <form action="../MODELO/CRUD_turno.php" method="post">
                     <div class="input-group p-2">
-                        <input class="from-control" type="number" name="cedula" id="cedula" placeholder="CEDULA">                    
+                        <input class="form-control" type="number" name="cedula" id="cedula" placeholder="CEDULA">
                     </div>
                     <div class="input-group p-2">
-                        <input class="from-control" type="text" name="nomAp" id="nomAp" placeholder="NOMBRE Y APELLIDO">
+                        <input class="form-control" type="text" name="nomAp" id="nomAp" placeholder="NOMBRE Y APELLIDO">
                     </div>
                     <div class="input-group p-2">
-                        <select class="from-control" name="turno" id="turno">
-                            <option name="1" value="seleccione">SELECCIONE</option>
-                            <option name="2" value="seleccione">DERMATOLOGÍA</option>
-                            <option name="3" value="seleccione">PEDIATRÍA</option>
-                            <option name="4" value="seleccione">CARDIOLOGÍA</option>
+                        <select class="form-control" name="turno" id="turno">
+                            <option value="seleccione">SELECCIONE</option>
+                            <?php
+                            // Verifica si hay turnos disponibles
+                            if ($result->num_rows > 0) {
+                                while ($row = $result->fetch_assoc()) {
+                                    // Mostrar las especialidades en el select
+                                    echo "<option value='{$row['idTurno']}'>{$row['especialidad']}</option>";
+                                }
+                            } else {
+                                echo "<option value=''>No hay turnos disponibles</option>";
+                            }
+                            ?>
                         </select>
                     </div>
-                    <button class="btn btn-success w-100" type= "submit" name= "registroT" id="registroT">REGISTRAR</button>
+                    <button class="btn btn-success w-100" type="submit" name="registroT" id="registroT">REGISTRAR</button>
                 </form>
             </div>
         </div>
