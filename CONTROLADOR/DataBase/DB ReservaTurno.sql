@@ -24,8 +24,7 @@ create table Turnos(
     idProfesional int not null,
     constraint fkIdProfesional foreign key (idProfesional) references Profesionales(idProfesional),
     hora_fecha dateTime not null,
-    precio double not null,
-    estado ENUM ('Pendiente', 'Anulado', 'Atendido')
+    precio double not null
 )
 
 create table ReservaTurnos(
@@ -33,13 +32,14 @@ create table ReservaTurnos(
     cedulaCli int not null,
     nombreCli varchar(50) not null,
     idTurno int not null,
-    constraint fkidTurno foreign key (idTurno) references Turnos (idTurno)
+    constraint fkidTurno foreign key (idTurno) references Turnos (idTurno),
+    estado ENUM ('Pendiente', 'Anulado', 'Atendido')
 )
 
 -- consulta para insertar registros de:
 -- usuarios
 INSERT INTO usuarios (nomUsu, clave, rolUsu) VALUES
--- ('Jani123', '123jani', 1)
+('Jani123', '123jani', 1),
 ('Moni34', 'mon43', 2),
 ('Yeni74', 'yen64', 2)
 
@@ -57,13 +57,14 @@ INSERT INTO profesionales (nombreProf, idEspecialidad) VALUES
 ('Franchezco',4)
 
 -- Turnos 
-INSERT INTO turnos (idProfesional, hora_fecha, precio, estado) VALUES
-(3, '2024-12-31 23:59:59', 65000, 2)
-(2, '2024-12-09 14:30:00', 50000, 1)
+INSERT INTO turnos (idProfesional, hora_fecha, precio) VALUES
+(3, '2024-12-31 23:59:59', 65000),
+(2, '2024-12-09 14:30:00', 50000)
  SELECT * FROM turnos
 
 -- Reserva de Turnos
-INSERT INTO reservaturnos (cedulaCli, nombreCli, idTurno) VALUES
+INSERT INTO reservaturnos (cedulaCli, nombreCli, idTurno, estado) VALUES
+(25445, 'Flaudelio', 2, 2),
 (6172894 ,'Juanastasio', 1)
 SELECT * FROM reservaturnos
 
@@ -80,7 +81,7 @@ SELECT
     e.nombreEsp AS especialidad, 
     p.nombreProf AS profesional, 
     t.hora_fecha AS fecha_turno, 
-    t.estado AS estado_turno
+    rt.estado AS estado_turno
 FROM 
     reservaturnos AS rt
 INNER JOIN 
