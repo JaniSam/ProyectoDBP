@@ -1,7 +1,7 @@
 <?php
 // Incluir la conexión a la base de datos
 include '../CONTROLADOR/DataBase/conexion.php';
-
+session_start();-
 // Consultar los turnos con su especialidad en la base de datos
 $query = "SELECT t.idTurno, e.nombreEsp AS especialidad FROM turnos t 
         INNER JOIN 
