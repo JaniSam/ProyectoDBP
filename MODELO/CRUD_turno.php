@@ -1,6 +1,5 @@
 <?php
     require "../CONTROLADOR/DataBase/conexion.php";
-    session_start();
     if (isset($_POST['registroT'])) {
         // Captura los datos del formulario
         $cedula = $_POST['cedula'];
@@ -16,7 +15,6 @@
     
             if ($stmt->execute()) {
                 // Redirige al usuario con un mensaje de éxito
-                $_SESSION['mensaje'] = 'Registro creado correctamente';
                 header('Location: ../VISTA/ReservaTurno.php?msg=Turno registrado con éxito');
                 exit();
             } else {
@@ -40,7 +38,6 @@
     
         if ($stmt->execute()) {
             // Redirige a la página de turnos con un mensaje de éxito
-            $_SESSION['mensaje'] = 'Registro actualizado correctamente';
             header("Location: ../VISTA/Turnos.php?msg=Estado actualizado");
             exit();
         } else {
@@ -59,7 +56,6 @@
 
         if ($stmt->execute()) {
             // Redirige a la página de turnos con un mensaje de éxito
-            $_SESSION['mensaje'] = 'Registro eliminado correctamente';
             header("Location: ../VISTA/Turnos.php?msg=Turno eliminado");
             exit();
         } else {

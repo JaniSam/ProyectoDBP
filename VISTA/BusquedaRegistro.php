@@ -4,7 +4,7 @@
     require '../MODELO/CRUD_turno.php';
     session_start();
 $result = $_SESSION['result'] ?? []; // Si no hay datos, $result será un arreglo vacío
-unset($_SESSION['result']); // Limpia la sesión para evitar datos antiguos
+//unset($_SESSION['result']); // Limpia la sesión para evitar datos antiguos
 ?>
 
 <!DOCTYPE html>

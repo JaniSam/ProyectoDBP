@@ -1,14 +1,13 @@
 <?php
-// Incluir la conexión a la base de datos
-include '../CONTROLADOR/DataBase/conexion.php';
-session_start();-
-// Consultar los turnos con su especialidad en la base de datos
-$query = "SELECT t.idTurno, e.nombreEsp AS especialidad FROM turnos t 
-        INNER JOIN 
-            profesionales p ON t.idProfesional = p.idProfesional
-        INNER JOIN 
-            especialidades e ON p.idEspecialidad = e.idEspecialidad;";
-$result = $conexion->query($query);
+    // Incluir la conexión a la base de datos
+    include '../CONTROLADOR/DataBase/conexion.php';
+    // Consultar los turnos con su especialidad en la base de datos
+    $query = "SELECT t.idTurno, e.nombreEsp AS especialidad FROM turnos t 
+            INNER JOIN 
+                profesionales p ON t.idProfesional = p.idProfesional
+            INNER JOIN 
+                especialidades e ON p.idEspecialidad = e.idEspecialidad;";
+    $result = $conexion->query($query);
 ?>
 
 <!DOCTYPE html>

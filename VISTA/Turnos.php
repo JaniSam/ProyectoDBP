@@ -1,7 +1,6 @@
 <?php
 // Incluye el archivo de conexión
 include '../CONTROLADOR/DataBase/conexion.php';
-session_start(); 
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -27,13 +26,6 @@ session_start();
         </nav>
     </header>
 
-    <?php
-            // Mostrar mensaje de éxito si existe
-            if (isset($_SESSION['mensaje'])) {
-                echo "<div class='alert alert-success'>{$_SESSION['mensaje']}</div>";
-                unset($_SESSION['mensaje']); // Eliminar el mensaje después de mostrarlo
-            }
-        ?>
     <!-- Formulario de búsqueda por rango de fechas -->
     <div class="container mb-4">
         <form action="../MODELO/CRUD_turno.php" method="POST">
