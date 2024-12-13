@@ -12,6 +12,10 @@
   }
 }
 
+body{
+  background-image: href="../IMAGENES/logo/fondodbp.jpg";
+}
+
 .b-example-divider {
   width: 100%;
   height: 3rem;

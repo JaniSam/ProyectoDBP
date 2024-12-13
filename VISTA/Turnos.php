@@ -45,7 +45,6 @@ include '../CONTROLADOR/DataBase/conexion.php';
         </form>
     </div>
 
-
     <div class="container mt-5">
         <h1 class="text-center mb-4">Turnos Registrados</h1>
         <table class="table table-striped table-hover">
@@ -117,7 +116,7 @@ include '../CONTROLADOR/DataBase/conexion.php';
                                                                 <option value='Atendido' " . ($row['estado_turno'] == 'Atendido' ? 'selected' : '') . ">Atendido</option>
                                                             </select>
                                                         </div>
-                                                        <button type='submit' class='btn btn-primary' name='actualizarEstado'>Actualizar</button>
+                                                        <button type='submit' class='btn btn-primary' name='actualizarEstado' id='actualizarEstado'>Actualizar</button>
                                                     </form>
                                                 </div>
                                             </div>
@@ -147,6 +146,7 @@ include '../CONTROLADOR/DataBase/conexion.php';
                                     </div>
                                 </td>
                               </tr>";
+                              
                     }
                 } else {
                     echo "<tr><td colspan='8' class='text-center'>No hay registros</td></tr>";
@@ -158,7 +158,8 @@ include '../CONTROLADOR/DataBase/conexion.php';
         </table>
     </div>
 
-    <!-- Scripts de Bootstrap -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-pzjw8f+ua7Kw1TIq0sEpmKj+ua7Kw1TIq0sEpmKj+ua7Kw1TIq0sEpmKj+ua7Kw1TIq0sEpmKj+" crossorigin="anonymous"></script>
+    <!--Scripts de Bootstrap-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
 </body>
 </html>

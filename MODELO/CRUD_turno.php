@@ -27,10 +27,7 @@
         } else {
             echo "Por favor complete todos los campos.";
         }
-    }
-    
-
-    if (isset($_POST['actualizarEstado'])) {
+    } else if (isset($_POST['actualizarEstado'])) {
         $idReservaT = $_POST['id'];
         $estado = $_POST['estado'];
     
@@ -41,15 +38,13 @@
     
         if ($stmt->execute()) {
             // Redirige a la página de turnos con un mensaje de éxito
-            header("Location: Turnos.php?msg=Estado actualizado");
+            header("Location: ../VISTA/Turnos.php?msg=Estado actualizado");
         } else {
             // Si ocurre un error
             echo "Error al actualizar el estado: " . $conexion->error;
         }
         $stmt->close();
-    }
-
-    // Eliminar turno
+    } else // Eliminar turno
     if (isset($_GET['accion']) && $_GET['accion'] == 'eliminar' && isset($_GET['id'])) {
         $idReservaT = $_GET['id'];
 
@@ -60,15 +55,13 @@
 
         if ($stmt->execute()) {
             // Redirige a la página de turnos con un mensaje de éxito
-            header("Location: Turnos.php?msg=Turno eliminado");
+            header("Location: ../VISTA/Turnos.php?msg=Turno eliminado");
         } else {
             // Si ocurre un error
             echo "Error al eliminar el turno: " . $conexion->error;
         }
         $stmt->close();
-    }
-    
-    //buscar por fechas
+    } else //buscar por fechas
     if (isset($_POST['buscar'])) {
         $fecha_inicio = $_POST['fecha_inicio'] ?? '';
         $fecha_fin = $_POST['fecha_fin'] ?? '';
